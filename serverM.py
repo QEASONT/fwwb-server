@@ -153,11 +153,16 @@ class LoginRoom(Room):
         session.push('连接成功'.encode('utf-8'))
 
     def do_creat(self, session, line):
+        
         digit = line.strip()
         digitl = digit.split("$$")
         if len(digitl)!= 2:
             session.push('奇怪问题'.encode('utf-8'))
         name = digitl[0]
+        
+        session.meet = name
+        session.push(str(session.meet).encode('utf-8'))
+
         password = digitl[1]
         f = open('userlist.txt', 'r')  #打开已存在用户的文件，假设文件已经存在
         localname = f.readlines()

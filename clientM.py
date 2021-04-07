@@ -101,7 +101,7 @@ class MainPanel(wx.Panel):
                 return
             con.write(('creat ' + str(self.userName.GetLineText(0))+"$$"+str(self.serverAddress.GetLineText(0)) + '\n').encode("utf-8"))
             response = con.read_some()
-            
+            self.showDialog("ajfidj", response, (800, 100))
             if response == '用户名重复'.encode('utf-8'):
                 self.showDialog('Error', '用户名重复!', (200, 100))
             # elif response == '用户名已存在':
@@ -239,11 +239,13 @@ class MainPanelS(wx.Panel):
             serverAddress = self.serverAddress.GetLineText(0).split(':')
             con.open(serverAddress[0], port=int(serverAddress[1]), timeout=10)
             response = con.read_some()
+           
             if response != '连接成功'.encode('utf-8'):
                 self.showDialog('Error', '连接失败!', (200, 100))
                 return
             con.write(('create ' + str(self.userName.GetLineText(0)) + '\n').encode("utf-8"))
             response = con.read_some()
+
             if response == '用户名为空'.encode('utf-8'):
                 self.showDialog('Error', '用户名为空!', (200, 100))
             elif response == '用户名已存在':
